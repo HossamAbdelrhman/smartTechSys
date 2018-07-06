@@ -2,21 +2,24 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var app = express();
-
-var currentSearchResult = 'example';
 var urlencodedParser = bodyParser.urlencoded({
     extended: false
 });
+var jsonObj ={
+    "name":""
+};
 
 
-app.post('/submit', urlencodedParser, function (req, res) {
-    console.log(req.body);
-})
 
-
-// fs.readFile('./json/json.json', function (err, data) {
-//     var json = JSON.parse(data)
-//     json.push('search result: ' + currentSearchResult)
-
-//     fs.writeFile("./json/json.json", JSON.stringify(json))
-// })
+function click() {
+    fs.readFile('./json.json', function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            obj = JSON.parse(data); //now it an object
+            obj.push(jsonObj); //add some data
+            json = JSON.stringify(obj); //convert it back to json
+            fs.writeFile('json.json', json); // write it back 
+        }
+    });
+}
